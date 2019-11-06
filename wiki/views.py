@@ -12,11 +12,10 @@ class PageList(ListView):
       3. Replace pass below with the code to render a template named `list.html`.
     """
     model = Page
-
     def get(self, request):
         """ Returns a list of wiki pages. """
-        pass
-
+        all_pages = Page.objects.all()
+        return render(request, 'list.html', {'pageList' : all_pages})
 
 class PageDetailView(DetailView):
     """
@@ -39,7 +38,7 @@ class PageDetailView(DetailView):
 
     def get(self, request, slug):
         """ Returns a specific of wiki page by slug. """
-        pass
-
+        page = Page.objects.get(slug = slug)
+        return render(request, 'page.html', {'page' : page})
     def post(self, request, slug):
         pass
