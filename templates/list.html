@@ -4,7 +4,12 @@
           <h1>Hello, World!</h1>
 
 {% for page in pageList%}
-    <a href='{{page.slug}}'>{{ page.title }}</a>
-    <br>
+    <ul>
+        <li>
+            <a href='{{page.slug}}'>{{ page.title }}</a>
+        </li>
+    </ul>
+    
+   
 {% endfor %}
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from wiki.models import Page
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -12,6 +12,8 @@ class PageList(ListView):
       3. Replace pass below with the code to render a template named `list.html`.
     """
     model = Page
+    template_name = 'list.html'
+    context_object_name = 'pageList'
     def get(self, request):
         """ Returns a list of wiki pages. """
         all_pages = Page.objects.all()
@@ -38,8 +40,11 @@ class PageDetailView(DetailView):
 
     def get(self, request, slug):
         """ Returns a specific of wiki page by slug. """
-        page = Page.objects.get(slug = slug)
-        return render(request, 'page.html', {'page' : page})
+        page = get_object_or_404(self.model ,slug = slug)
+        context = {
+          'page': page
+        }
+        return render(request, 'page.html', context)
         # return HttpResponse(slug)
     def post(self, request, slug):
         pass
